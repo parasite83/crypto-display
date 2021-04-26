@@ -10,12 +10,12 @@
   var subscribeMsg = {
     "event": "bts:subscribe",
     "data": {
-      "channel": "order_book_ethusd"
+      "channel": "order_book_xrpusd"
     }
   };
 
   var formatter = new Intl.NumberFormat('en-IN', {
-    minimumFractionDigits: 2
+    minimumFractionDigits: 4
   });
 
   var updatePrice = function(data) {
