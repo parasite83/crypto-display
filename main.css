@@ -1,0 +1,26 @@
+body {
+  background-color: #000;
+  overflow: hidden;
+}
+
+.price {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  font: 16vw Arial, sans-serif;
+  margin: auto;
+}
+
+[status="normal"] {
+  color: grey;
+}
+
+[status="inc"] {
+  color: #2f2;
+}
+
+[status="desc"] {
+  color: #f22;
+}
