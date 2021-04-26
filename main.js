@@ -71,10 +71,12 @@
     };
   };
 
-  initWebsocket();
+  $(function() {
+    initWebsocket();
 
-  refreshInterval = setInterval(function() {
-    refresh();
-  }, 1000);
+    refreshInterval = setInterval(function() {
+      refresh();
+    }, 1000);
+  });
 
 })(jQuery);
