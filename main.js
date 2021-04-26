@@ -1,5 +1,5 @@
 (function($) {
-  var placeholder = $('.price');
+  var placeholder;
   var webSocket;
   var refreshInterval;
   var price;
@@ -72,6 +72,7 @@
   };
 
   $(function() {
+    placeholder = $('.price');
     initWebsocket();
 
     refreshInterval = setInterval(function() {
