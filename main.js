@@ -15,11 +15,11 @@
   };
 
   var formatter = new Intl.NumberFormat('en-IN', {
-    maximumFractionDigits: 1
+    minimumFractionDigits: 2
   });
 
   var updatePrice = function(data) {
-    price = data.asks[0][0];
+    price = Number.parseFloat(data.asks[0][0]).toPrecision(6);
 
     if (price !== priceOld) {
       diff = price - priceOld;
