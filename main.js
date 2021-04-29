@@ -14,6 +14,23 @@
     }
   };
 
+  var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+      sParameterName = sURLVariables[i].split('=');
+
+      if (sParameterName[0] === sParam) {
+        return typeof sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+      }
+    }
+
+    return false;
+  };
+
   var formatter = new Intl.NumberFormat('en-IN', {
     minimumFractionDigits: 4
   });
@@ -44,9 +61,14 @@
   }
 
   var initWebsocket = function() {
-    ws = new WebSocket("wss://ws.bitstamp.net");
+    ws = new WebSocket('wss://ws.bitstamp.net');
 
     ws.onopen = function () {
+    	var channel = getUrlParameter('channel');
+      if (channel) {
+        subscribeMsg.data.channel = channel;
+      }
+
       ws.send(JSON.stringify(subscribeMsg));
     };
 
