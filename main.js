@@ -1,18 +1,14 @@
 (function($) {
-  var placeholder;
-  var webSocket;
-  var refreshInterval;
-  var price;
+  var placeholder,
+      webSocket,
+      refreshInterval,
+      price,
+      subscribeMsg,
+      formatter,
+      channel;
   var priceOld = 0;
   var diff = 0;
   var status = 'normal';
-
-  var subscribeMsg = {
-    "event": "bts:subscribe",
-    "data": {
-      "channel": "order_book_xrpusd"
-    }
-  };
 
   var getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = window.location.search.substring(1),
@@ -30,10 +26,6 @@
 
     return false;
   };
-
-  var formatter = new Intl.NumberFormat('en-IN', {
-    minimumFractionDigits: 4
-  });
 
   var updatePrice = function(data) {
     price = Number.parseFloat(data.asks[0][0]).toPrecision(6);
@@ -64,11 +56,6 @@
     ws = new WebSocket('wss://ws.bitstamp.net');
 
     ws.onopen = function () {
-    	var channel = getUrlParameter('channel');
-      if (channel) {
-        subscribeMsg.data.channel = channel;
-      }
-
       ws.send(JSON.stringify(subscribeMsg));
     };
 
@@ -92,9 +79,30 @@
       initWebsocket();
     };
   };
+  
+  var setup = function() {
+    channel = getUrlParameter('channel');
+
+    subscribeMsg = {
+      "event": "bts:subscribe",
+      "data": {
+        "channel": "order_book_btcusd"
+      }
+    };
+    
+    if (channel) {
+      subscribeMsg.data.channel = channel;
+    }
+    
+    formatter = new Intl.NumberFormat('en-IN', {
+      minimumSignificantDigits: 5,
+      maximumSignificantDigits: 5
+    });
+  };
 
   $(function() {
     placeholder = $('.price');
+    setup();
     initWebsocket();
 
     refreshInterval = setInterval(function() {
