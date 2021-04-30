@@ -2,11 +2,47 @@
 <html>
   <head>
     <title>Crypto price display</title>
-    <link media="all" rel="stylesheet" href="main.css">
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
-    <script type="text/javascript" src="main.js"></script>
+    <link media="all" rel="stylesheet" href="crypto-display.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script type="text/javascript" src="crypto-display.js"></script>
+    <script type="text/javascript">
+      (function ($) {
+        $(function() {
+          $('.crypto-display--element.btc').cryptoDisplay({
+            channel: 'btcusd',
+            digits: 5,
+            delay: 1000
+          });
+          $('.crypto-display--element.eth').cryptoDisplay({
+            channel: 'ethusd',
+            digits: 5,
+            delay: 1000
+          });
+          $('.crypto-display--element.xrp').cryptoDisplay({
+            channel: 'xrpusd',
+            digits: 5,
+            delay: 1000
+          });
+
+          $('.crypto-display').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            fade: true,
+            arrows: false,
+            autoplay: true,
+            autoplaySpeed: 3000,
+          });
+        });
+      })(jQuery);
+    </script>
   </head>
   <body>
-    <div class="price" status="normal">Loading...</div>
+    <div class="crypto-display">
+      <div><div class="crypto-display--element btc">Loading...</div></div>
+      <div><div class="crypto-display--element eth">Loading...</div></div>
+      <div><div class="crypto-display--element xrp">Loading...</div></div>
+    </div>
   </body>
 </html>
