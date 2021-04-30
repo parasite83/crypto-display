@@ -104,7 +104,6 @@
   }
 
   $.fn.cryptoDisplay = function (options) {
-    console.log(this);
     return this.each(function () {
       if (undefined == $(this).data('cryptoDisplay')) {
         var plugin = new $.cryptoDisplay(this, options);
